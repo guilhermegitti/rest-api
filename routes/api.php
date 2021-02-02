@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 /*
  * Usuários
  */
@@ -59,3 +55,12 @@ Route::get('/clientes/veiculos/{id}', 'App\Http\Controllers\VeiculoController@sh
 
 // Apaga um carro de um cliente
 Route::delete('/veiculos/{id}', 'App\Http\Controllers\VeiculoController@delete')->name('delete_veiculo');
+
+/**
+ * JWT login token
+ */
+Route::group([
+    'middleware' => 'api'
+], function($router) {
+    Route::post('/login', 'App\Http\Controllers\AuthController@login');
+});
